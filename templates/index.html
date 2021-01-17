@@ -1,0 +1,58 @@
+{% extends "layout.html" %}
+{% block body %}
+
+<div class="container" style="margin:5% 0 15% 15%;">
+  <form action="/add" method="post">
+  <div class="form-group">
+    <label for="exampleFormControlInput1">Title</label>
+    <input name="title" type="text" class="form-control" id="exampleFormControlInput1" placeholder="Başlık..">
+    </div>
+      <div class="form-group">
+      <label for="exampleFormControlTextarea1">Work To Do</label>
+      <textarea name="content" class="form-control" id="exampleFormControlTextarea1" rows="3" placeholder="İşin Detayı.."></textarea>
+    </div>
+    <button name="btnToDoAdd" type="submit" class="btn btn-secondary"><i class="fa fa-plus-circle"> Yapılacaklara Ekle</i></button>
+  </form>
+    <br>
+<h3>Todo List </h3>
+    <hr>
+    {% if todos == [] %}
+        <div class="alert alert-warning" role="alert">
+        Yapılacak Listesinde Hiç İş Bulunmuyor!
+        </div>
+    {% else %}
+<table class="table">
+  <thead class="thead-dark">
+    <tr>
+      <th scope="col">id</th>
+      <th scope="col">Title</th>
+      <th scope="col">Content</th>
+      <th scope="col">Status</th>
+      <th scope="col">Process</th>
+    </tr>
+  </thead>
+  <tbody>
+  {% for i in todos %}
+    <tr>
+      <th scope="row">{{ i.id }}</th>
+      <td><a href="/Job/{{ i.id }}"><span class="badge badge-info">{{ i.title }}</span></a></td>
+      <td>{{ i.content }}</td>
+        {% if i.complete== True %}
+        <td>Tamamlandı.</td>
+        {%  else %}
+        <td>Tamamlanmadı</td>
+        {% endif %}
+      <td>
+        <a href="/completed/{{ i.id }}" class="btn btn-success" >Durum Güncelle</a>
+        <a href="/deleted/{{ i.id }}" class="btn btn-danger" >Sil</a>
+      </td>
+    </tr>
+  {% endfor %}
+  </tbody>
+</table>
+    {% endif %}
+
+
+</div>
+
+{% endblock %}

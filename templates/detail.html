@@ -1,0 +1,19 @@
+{% extends "layout.html" %}
+{% block body %}
+<div class="content" style="margin:5% 0 15% 15%;">
+<h3>{{ todo.title }} Detay Sayfası</h3>
+    <hr>
+    <label>Detay: </label>
+    <label>{{ todo.content }}</label>
+    <hr>
+    <label>Durum: </label>
+    {% if todo is not none %}
+    {% if todo.complete == False %}
+    <label>Tamamlanmadı.</label>
+    {% else %}
+    <label>Tamamlandı.</label>
+    {% endif %}
+    {% endif %}
+</div>
+
+{% endblock %}
