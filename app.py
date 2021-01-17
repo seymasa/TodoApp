@@ -1,10 +1,11 @@
-from flask import Flask, render_template, url_for, request, redirect
+from flask import Flask, flash, render_template, url_for, request, redirect
 from flask_sqlalchemy import SQLAlchemy
 import os
 
 basedir = os.path.abspath(os.path.dirname(__file__))
 
 app = Flask(__name__)
+app.secret_key = b'_5#y2L"F4Q8z\n\xec]/'
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:////' + os.path.join(basedir, 'Todo.db')
 db = SQLAlchemy(app)
 
@@ -19,10 +20,14 @@ def index():
 def add():
     title = request.form.get('title')
     content = request.form.get('content')
-    newTodo = Todo(title=title, content=content)
-    db.session.add(newTodo)
-    db.session.commit()
-    return redirect(url_for('index'))
+    if not title or not content:
+        flash('title ve detay girmelisin!', "error")
+        return redirect(url_for('index'))
+    else:
+        newTodo = Todo(title=title, content=content)
+        db.session.add(newTodo)
+        db.session.commit()
+        return redirect(url_for('index'))
 
 
 @app.route("/completed/<string:job_id>")

@@ -4,6 +4,9 @@
 <div class="container" style="margin:5% 0 15% 15%;">
   <form action="/add" method="post">
   <div class="form-group">
+      {% for mesg in get_flashed_messages() %}
+      <div class="alert alert-danger" role="alert">{{ mesg }}</div>
+      {% endfor %}
     <label for="exampleFormControlInput1">Title</label>
     <input name="title" type="text" class="form-control" id="exampleFormControlInput1" placeholder="Başlık..">
     </div>
