@@ -37,6 +37,7 @@
       <th scope="row">{{ i.id }}</th>
       <td><a href="/Job/{{ i.id }}"><span class="badge badge-info">{{ i.title }}</span></a></td>
       <td>{{ i.content }}</td>
+
         {% if i.complete== True %}
         <td>Tamamlandı.</td>
         {%  else %}
